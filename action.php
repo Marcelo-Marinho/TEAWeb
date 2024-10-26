@@ -2,14 +2,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> <?php echo $_POST['anotacao'] ?> </title>
+    <title> <?php echo $_GET['anotacao'] ?> </title>
 </head>
 
 <body>
 
     <?php
 
-        echo $_POST['anotacao']
+        $listaEmote = [
+            "feliz_" => "😃",
+            "neutro" => "😶",
+            "triste" => "🙁",
+            "bravo_" => "😠",
+            "doente" => "🤒",
+        ];
+
+        $var_emoji = $listaEmote[$_GET["emocao"]];
+
+        echo "emoção: ", $_GET['emocao'], " | ", $var_emoji, " <br>";
+        echo "notas: ", $_GET['anotacao'];
 
     ?>
 
