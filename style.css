@@ -1,0 +1,6 @@
+.diary {
+    resize: vertical;
+    width: 75em;
+    min-height: 50px;
+    max-height: 2500px;
+}
