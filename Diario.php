@@ -3,9 +3,9 @@
 include_once("connect.php");
 
 // Função para cadastrar tarefa
-function cadastrarAnotacao($usuario_id, $anotacao) {
+function novaAnotacao($usuario_id, $anotacao, $emocao) {
     global $conn;
-    $sql = "INSERT INTO diario (usuario_id, anotacao, data_criacao) VALUES ('$usuario_id', '$anotacao', NOW())";
+    $sql = "INSERT INTO diario (usuario_id, anotacao, data_criacao, emocao) VALUES ('$usuario_id', '$anotacao', NOW(), '$emocao')";
     $conn->query($sql);
 }
 
@@ -16,25 +16,13 @@ function listarAnotacoes($usuario_id) {
     return $conn->query($sql);
 }
 
-// Função para concluir tarefa
-function novaAnotacao($tarefa_id) {
-    global $conn;
-    $sql = "UPDATE tarefas SET status = 'concluída' WHERE id = '$tarefa_id'";
-    $conn->query($sql);
-}
-
 // Processamento do formulário
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['descricao'])) {
-        // Cadastrar nova tarefa
-        $descricao = $_POST['descricao'];
-        $usuario_id = 1; // Substitua pelo ID do usuário logado
-        cadastrarAnotacao($usuario_id, $descricao);
-    } elseif (isset($_POST['concluir'])) {
-        // Concluir tarefa
-        $tarefa_id = $_POST['concluir'];
-        novaAnotacao($tarefa_id);
-    }
+    // nova anotação em diario
+    $descricao = $_POST['descricao'];
+    $emocao = $_POST['emocao']
+    $usuario_id = 1; // Substitua pelo ID do usuário logado
+    novaAnotacao($usuario_id, $descricao, $emocao);
 }
 
 
@@ -47,7 +35,7 @@ $diario = listarAnotacoes($usuario_id);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> <?php echo $_GET['anotacao'] ?> </title>
+    <title> Diário </title>
 </head>
 
 <body>
