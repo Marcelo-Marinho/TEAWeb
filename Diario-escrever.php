@@ -9,7 +9,7 @@
 
 </head>
 <body>
-    <form method="get" action="Diario-action.php">
+    <form method="get" action="./Diario.php">
 
         <label for="emocao">Como foi seu dia hoje? </label>
         <select id="emocao" name="emocao">
@@ -21,6 +21,7 @@
           </select><br>
         <textarea class="diary" id="anotacao" name="anotacao"></textarea><br><br>
 
+        <input type="hidden" name="concluir" value="<?= $task['id'] ?>">
         <button type="submit">Enviar</button>
     </form>
 </body>
