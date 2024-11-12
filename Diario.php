@@ -3,17 +3,24 @@
 include_once("connect.php");
 
 // Função para cadastrar tarefa
-function cadastrarTarefa($usuario_id, $anotacao) {
+function cadastrarAnotacao($usuario_id, $anotacao) {
     global $conn;
     $sql = "INSERT INTO diario (usuario_id, anotacao, data_criacao) VALUES ('$usuario_id', '$anotacao', NOW())";
     $conn->query($sql);
 }
 
 // Função para listar tarefas de um usuário
-function listarTarefas($usuario_id) {
+function listarAnotacoes($usuario_id) {
     global $conn;
     $sql = "SELECT * FROM diario WHERE usuario_id = '$usuario_id'";
     return $conn->query($sql);
+}
+
+// Função para concluir tarefa
+function novaAnotacao($tarefa_id) {
+    global $conn;
+    $sql = "UPDATE tarefas SET status = 'concluída' WHERE id = '$tarefa_id'";
+    $conn->query($sql);
 }
 
 // Processamento do formulário
@@ -22,17 +29,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Cadastrar nova tarefa
         $descricao = $_POST['descricao'];
         $usuario_id = 1; // Substitua pelo ID do usuário logado
-        cadastrarTarefa($usuario_id, $descricao);
+        cadastrarAnotacao($usuario_id, $descricao);
     } elseif (isset($_POST['concluir'])) {
         // Concluir tarefa
         $tarefa_id = $_POST['concluir'];
-        concluirTarefa($tarefa_id);
+        novaAnotacao($tarefa_id);
     }
 }
 
 
 $usuario_id = 1; // Exemplo de ID de usuário
-$diario = listarTarefas($usuario_id);
+$diario = listarAnotacoes($usuario_id);
 
 ?>
 

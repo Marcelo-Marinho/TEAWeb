@@ -1,3 +1,17 @@
+<?php
+// Inclua o arquivo de conexão com o banco de dados
+include_once("connect.php");
+
+// Função para concluir tarefa
+function concluirTarefa($tarefa_id) {
+    global $conn;
+    $sql = "UPDATE tarefas SET status = 'concluída' WHERE id = '$tarefa_id'";
+    $conn->query($sql);
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
