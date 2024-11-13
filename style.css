@@ -4,3 +4,15 @@
     min-height: 50px;
     max-height: 2500px;
 }
+
+.anotacao {
+    border: solid;
+    border-width: 2px;
+    border-radius: 10px;
+    padding: 1px;
+}
+
+.nota {
+    border-width: 2px;
+    border-radius: 5px;
+}

@@ -9,9 +9,11 @@
 
     <?php
 
+        $Url_link = '[link]'; // aqui ficaria o link para musica/terapia, mas infelizmente não tenho uma playlist boa
+
         echo "Telefone: ", $_GET['tel'];
         
-        echo "<br><a href='https://wa.me/", $_GET["tel"], "?text=aaa'> Link do whatsapp </a>";
+        echo "<br><a href='https://wa.me/", $_GET["tel"], "?text='", $Url_link, "'> Link do whatsapp </a>"; 
 
     ?>
 

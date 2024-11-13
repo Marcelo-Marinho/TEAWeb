@@ -18,11 +18,18 @@ function listarAnotacoes($usuario_id) {
 
 // Processamento do formulário
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // nova anotação em diario
-    $descricao = $_POST['descricao'];
-    $emocao = $_POST['emocao']
-    $usuario_id = 1; // Substitua pelo ID do usuário logado
-    novaAnotacao($usuario_id, $descricao, $emocao);
+    if (isset($_POST['apagar'])) {
+        global $conn;
+        $kill = $_POST['apagar'];
+        $sql = "DELETE FROM diario WHERE id='$kill'";
+        $conn->query($sql);
+    } else {
+        // nova anotação em diario
+        $descricao = $_POST['descricao'];
+        $emocao = $_POST['emocao'];
+        $usuario_id = 1; // Substitua pelo ID do usuário logado
+        novaAnotacao($usuario_id, $descricao, $emocao);
+    }
 }
 
 
@@ -36,6 +43,7 @@ $diario = listarAnotacoes($usuario_id);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Diário </title>
+    <link href="style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -58,8 +66,14 @@ $diario = listarAnotacoes($usuario_id);
                 <?php
                     $var_emoji = $listaEmote[$nota['emocao']];
                 ?>
-                <span>Status: <?= htmlspecialchars($var_emoji) ?></span>
-                <span><?= htmlspecialchars($nota['anotacao']) ?></span>
+                <span>Dia: <?= htmlspecialchars($nota['data_criacao']) ?> | <?= htmlspecialchars($var_emoji) ?></span>
+                <div class="nota">
+                    <span><?= htmlspecialchars($nota['anotacao']) ?></span>
+                    <form method="POST">
+                        <input type="hidden" name="apagar" value="<?= $nota['id'] ?>">
+                        <button type="submit">Deletar</button>
+                    </form>
+                </div>
             </div>
 
         <?php endwhile; ?>
